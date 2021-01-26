@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1007907070105",
+    "project_id": "theblog-e55a5",
+    "storage_bucket": "theblog-e55a5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1007907070105:android:df865a6036b88ba9985808",
+        "android_client_info": {
+          "package_name": "ru.istislav.theblog"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1007907070105-jpunvh87jlfeulge47cn7q14cbbnm4q3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.istislav.theblog",
+            "certificate_hash": "45c82e4b81c7f260c3c1173b204355be0c36b8f6"
+          }
+        },
+        {
+          "client_id": "1007907070105-1fbq764ssq29ft3koattdn3et51t48f8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3ewAualo7uH2j_gXVIpNuLYENXpdH9_0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1007907070105-1fbq764ssq29ft3koattdn3et51t48f8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
