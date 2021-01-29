@@ -4,4 +4,50 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:layout_margin="5dp">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/postImageList"
+            android:adjustViewBounds="true"
+            android:cropToPadding="false"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/postTitleList"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="Post Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            />
+
+        <TextView
+            android:id="@+id/postTextList"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            android:text="Post description here"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            />
+
+        <TextView
+            android:id="@+id/postTimestamp"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            android:text="Date created:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            />
+
+    </LinearLayout>
+
 </androidx.cardview.widget.CardView>
