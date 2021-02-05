@@ -11,7 +11,7 @@
         android:padding="15dp">
 
         <ImageView
-            android:id="@+id/postImageList"
+            android:id="@+id/postListImage"
             android:adjustViewBounds="true"
             android:cropToPadding="false"
             android:scaleType="centerCrop"
@@ -20,7 +20,7 @@
             android:src="@mipmap/add_btn" />
 
         <TextView
-            android:id="@+id/postTitleList"
+            android:id="@+id/postListTitle"
             android:textSize="18sp"
             android:textStyle="bold"
             android:text="Post Title"
@@ -30,7 +30,7 @@
             />
 
         <TextView
-            android:id="@+id/postTextList"
+            android:id="@+id/postListDesc"
             android:textSize="16sp"
             android:textStyle="normal"
             android:text="Post description here"
@@ -40,7 +40,7 @@
             />
 
         <TextView
-            android:id="@+id/postTimestamp"
+            android:id="@+id/postListTimestamp"
             android:textSize="16sp"
             android:textStyle="italic"
             android:text="Date created:"
