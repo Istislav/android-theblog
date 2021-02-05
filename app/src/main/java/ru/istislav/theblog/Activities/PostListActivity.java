@@ -53,6 +53,7 @@ public class PostListActivity extends AppCompatActivity {
                 if (mUser != null && mAuth != null) {
                     mAuth.signOut();
                     startActivity(new Intent(PostListActivity.this, MainActivity.class));
+                    finish();
                 }
                 break;
         }
