@@ -16,7 +16,7 @@
             android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@color/colorPrimary" />
+            android:src="@mipmap/add_btn" />
 
         <TextView
             android:id="@+id/postTitleList"
