@@ -1,8 +1,12 @@
 package ru.istislav.theblog.Activities;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -34,6 +38,9 @@ public class AddPostActivity extends AppCompatActivity {
 
     private ProgressDialog mProgress;
 
+    private Uri mImageUri;
+    private static final int GALLERY_CODE = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +58,15 @@ public class AddPostActivity extends AppCompatActivity {
         mPostDesc = (EditText) findViewById(R.id.editPostDescription);
         mSaveButton = (Button) findViewById(R.id.savePostButton);
 
+        mPostImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                galleryIntent.setType("image/*");
+                startActivityForResult(galleryIntent, GALLERY_CODE);
+            }
+        });
+
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,6 +74,16 @@ public class AddPostActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == GALLERY_CODE && resultCode == RESULT_OK) {
+            mImageUri = data.getData();
+            mPostImage.setImageURI(mImageUri);
+        }
     }
 
     private void startPosting() {
