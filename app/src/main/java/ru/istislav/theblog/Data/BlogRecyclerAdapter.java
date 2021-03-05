@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.Date;
 import java.util.List;
 
@@ -49,7 +51,8 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
         holder.timestamp.setText(formattedDate);
 
         imageUrl = blog.getImage();
-        //TODO: Use Picasso to load image
+        holder.imageUrl.setText(imageUrl);
+        Picasso.get().load(imageUrl).into(holder.image);
 
     }
 
@@ -63,6 +66,7 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
         public TextView desc;
         public TextView timestamp;
         public ImageView image;
+        public TextView imageUrl;
         String userid;
 
         public ViewHolder(@NonNull View view, Context ctx) {
@@ -74,6 +78,7 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
             desc = (TextView) view.findViewById(R.id.postListDesc);
             timestamp = (TextView) view.findViewById(R.id.postListTimestamp);
             image = (ImageView) view.findViewById(R.id.postListImage);
+            imageUrl = (TextView) view.findViewById(R.id.postListImageUrl);
 
             userid = null;
 
