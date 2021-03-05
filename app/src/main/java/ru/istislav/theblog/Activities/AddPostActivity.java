@@ -59,7 +59,7 @@ public class AddPostActivity extends AppCompatActivity {
         mUser = mAuth.getCurrentUser();
         mStorage = FirebaseStorage.getInstance().getReference();
 
-        mPostDatabase = FirebaseDatabase.getInstance().getReference().child("MBloc");
+        mPostDatabase = FirebaseDatabase.getInstance().getReference().child("MBlog"); // directory/table for saving
 
         mPostImage = (ImageButton) findViewById(R.id.postImageButton);
         mPostTitle = (EditText) findViewById(R.id.editPostTitle);
@@ -125,6 +125,8 @@ public class AddPostActivity extends AppCompatActivity {
                     // Old way: newPost.child("title").setValue(titleVal); ... etc
 
                     mProgress.dismiss();
+                    startActivity(new Intent(AddPostActivity.this, PostListActivity.class));
+                    finish();
                 }
             });
 
