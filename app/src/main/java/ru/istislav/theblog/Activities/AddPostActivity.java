@@ -21,6 +21,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import ru.istislav.theblog.Model.Blog;
 import ru.istislav.theblog.R;
@@ -32,6 +38,7 @@ public class AddPostActivity extends AppCompatActivity {
     private EditText mPostDesc;
     private Button mSaveButton;
 
+    private StorageReference mStorage;
     private DatabaseReference mPostDatabase;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
@@ -50,6 +57,7 @@ public class AddPostActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
+        mStorage = FirebaseStorage.getInstance().getReference();
 
         mPostDatabase = FirebaseDatabase.getInstance().getReference().child("MBloc");
 
@@ -90,21 +98,47 @@ public class AddPostActivity extends AppCompatActivity {
         mProgress.setMessage("Posting to blog...");
         mProgress.show();
 
-        String titleVal = mPostTitle.getText().toString().trim();
-        String descVal = mPostDesc.getText().toString().trim();
+        final String titleVal = mPostTitle.getText().toString().trim();
+        final String descVal = mPostDesc.getText().toString().trim();
 
-        if (!TextUtils.isEmpty(titleVal) && !TextUtils.isEmpty(descVal)) {
-            Blog blog = new Blog(titleVal, descVal, "imageVal",
-                    "timestamp", "userid");
-            mPostDatabase.setValue(blog).addOnSuccessListener(new OnSuccessListener<Void>() {
-                      @Override
-                      public void onSuccess(Void aVoid) {
-                          Toast.makeText(getApplicationContext(), "Item added",
-                                            Toast.LENGTH_SHORT).show();
-                          mProgress.dismiss();
-                      }
-                  }
-            );
+        if (!TextUtils.isEmpty(titleVal) && !TextUtils.isEmpty(descVal)
+                && mImageUri != null) {
+
+            // MBlog_images - is a directory
+            // mImageUri.getLastPathSegment() == "/image/myphoto.jpg"
+            StorageReference filepath = mStorage.child("MBlog_images")
+                                            .child(mImageUri.getLastPathSegment());
+            filepath.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Uri downloaduri = taskSnapshot.getUploadSessionUri();
+                    DatabaseReference newPost = mPostDatabase.push();
+
+                    Map<String, String> dataToSave = new HashMap<>();
+                    dataToSave.put("title", titleVal);
+                    dataToSave.put("desc", descVal);
+                    dataToSave.put("image", downloaduri.toString());
+                    dataToSave.put("timestamp", String.valueOf(java.lang.System.currentTimeMillis()));
+                    dataToSave.put("userid", mUser.getUid());
+
+                    newPost.setValue(dataToSave);
+                    // Old way: newPost.child("title").setValue(titleVal); ... etc
+
+                    mProgress.dismiss();
+                }
+            });
+
+//            Blog blog = new Blog(titleVal, descVal, "imageVal",
+//                    "timestamp", "userid");
+//            mPostDatabase.setValue(blog).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                      @Override
+//                      public void onSuccess(Void aVoid) {
+//                          Toast.makeText(getApplicationContext(), "Item added",
+//                                            Toast.LENGTH_SHORT).show();
+//                          mProgress.dismiss();
+//                      }
+//                  }
+//            );
         }
     }
 }
